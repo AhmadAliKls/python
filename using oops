@@ -1,0 +1,17 @@
+class Circle:
+    def __init__(self,redius):
+        self.redius = redius
+        print("This is a circle of redius",self.redius)
+
+    def Area(self):
+        area = 3.1428*self**2
+        print("Area of the circle is",area)
+
+    def Paremeter(self):
+        paremeter = 2*3.1428*self
+        print("Paremeter of the circle is",paremeter)
+
+redius = int(input("Enter the redius of the circle="))
+circle = Circle(redius)
+area = Circle.Area(redius)
+paremeter = Circle.Paremeter(redius)    
