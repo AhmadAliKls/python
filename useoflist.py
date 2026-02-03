@@ -1,59 +1,73 @@
-from typing import List
+names = ["Ahmad", "Ali", "Hassam", "Azan", "Hammad", "Hamza"]
 
-names: List[str] = []
+def add_name(name_to_add):
+    names.append(name_to_add)
+    print(f"{name_to_add} has been added successfully!")
 
-def add_name(new_name: str) -> None:
-    """Add a trimmed name to the list."""
-    names.append(new_name.strip())
-
-def get_names() -> List[str]:
-    """Return a copy of the current names list."""
-    return names.copy()
-
-def clear_names() -> None:
-    """Remove all names from the list."""
-    names.clear()
-
-def prompt_int(prompt: str) -> int:
-    """Prompt repeatedly until the user enters a non-negative integer."""
-    while True:
-        resp = input(prompt).strip()
-        if resp == "":
-            print("Please enter a number (or 0).")
-            continue
-        try:
-            n = int(resp)
-            if n < 0:
-                print("Please enter a non-negative number.")
-                continue
-            return n
-        except ValueError:
-            print("That's not a valid number. Please try again.")
-
-def prompt_yes_no(prompt: str) -> bool:
-    """Prompt until user answers yes or no. Returns True for yes."""
-    while True:
-        resp = input(prompt + " [y/n]: ").strip().lower()
-        if resp in ("y", "yes"):
-            return True
-        if resp in ("n", "no"):
-            return False
-        print("Please answer 'y' or 'n' (yes or no).")
-
-def main() -> None:
-    count = prompt_int("How many names do you want to add? ")
-    if count == 0:
-        print("You did not add any names to the list.")
-        return
-
-    for i in range(count):
-        input_name = input(f"Enter name #{i+1}: ")
-        add_name(input_name)
-
-    if prompt_yes_no("Do you want to see the list items you added?"):
-        print("Current names in the list:", get_names())
+def remove_name(name_to_remove):
+    if name_to_remove in names:
+        names.remove(name_to_remove)
+        print(f"{name_to_remove} has been removed!")
     else:
-        print("Okay — not showing the list.")
+        print("Error: Name not found in the list.")
 
-if __name__ == "__main__":
-    main()
+def access_list():
+    print("📋 Current list:", names)
+
+def clear_list():
+    names.clear()
+    print("The list is now empty!")
+
+def remove_last_element():
+    if names:
+        removed = names.pop()
+        print(f"{removed} was removed. Current list: {names}")
+    else:
+        print("Error: List is already empty.")
+
+def remove_first_element():
+    if names:
+        removed = names.pop(0)
+        print(f"{removed} was removed. Current list: {names}")
+    else:
+        print("Error: List is already empty.")
+
+condition = True
+while condition:
+    print("\n--- MENU ---")
+    print("1. Add name(s)")
+    print("2. Remove a name")
+    print("3. Access list")
+    print("4. Clear list")
+    print("5. Remove last element")
+    print("6. Remove first element")
+    print("7. Quit")
+    
+    choice = input("Choose an option (1-7): ")
+    
+    if choice == "1":
+        try:
+            no_of_names = int(input("Enter number of names to add = "))
+            for i in range(no_of_names):
+                get_name = input("Enter name to add = ")
+                add_name(get_name)
+            access_list()
+        except ValueError:
+            print("Error: Please enter a valid number.")
+    elif choice == "2":
+        get_name = input("Enter name to remove = ")
+        remove_name(get_name)
+    elif choice == "3":
+        access_list()
+    elif choice == "4":
+        clear_list()
+    elif choice == "5":
+        remove_last_element()
+    elif choice == "6":
+        remove_first_element()
+    elif choice == "7":
+        print("Final list state:", names)
+        print("Exiting program. Goodbye!")
+        condition = False
+    else:
+        print("Error: Invalid input.")
